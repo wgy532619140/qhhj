@@ -1,21 +1,18 @@
  require(['./js/main.js'], function() {
-     require(['swiper'], function(swiper) {
-         console.log(swiper);
-		 
+     require(['util'], function(url) {
+         console.log(url);		 
 		 
 		 var cz = document.querySelector("#ul")
 		 mui('.mui-scroll-wrapper').scroll({
 		 	deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-		 });
-		 
+		 });		 
 		 
 		 //默认加载
 		 
 		 
 		 mui.ajax('/moren',{
 			dataType:'json',//服务器返回json格式数据
-			type:'post',//HTTP请求类型
-	              
+			type:'post',//HTTP请求类型	              
 			success:function(data){
 				//服务器返回响应，根据响应结果，分析是否登录成功；
 				console.log(document.querySelector("#ul"))
@@ -42,6 +39,12 @@
 		  window.location.href = "http://localhost:8080/page/details.html?id="+idx
 		}) 
 		
+		
+		//点击添加
+		
+		document.querySelector(".mui-pull-right").addEventListener('tap',function(){		  
+		  window.location.href = "http://localhost:8080/page/message.html"
+		})
 		
 		//点击删除
 		

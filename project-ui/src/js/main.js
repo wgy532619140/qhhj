@@ -1,6 +1,6 @@
 require.config({
     baseUrl: '/js/',
     paths: {
-        'swiper': 'libs/swiper.min',
+        'util': 'commonConfig/util',
     }
 })

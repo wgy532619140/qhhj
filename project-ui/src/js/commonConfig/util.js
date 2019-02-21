@@ -1,10 +1,11 @@
 define([], function(require, factory) {
   var init = {
     //
-    formate:function(url) {
-      console.log(url, 'url')
-      return JSON.parse('{"' + url.replace(/&/g, '","').replace(/=/g, '":"') + '"}');
-    },
+		getUrlParam:function (name){
+				var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if (r!=null) return unescape(r[2]); return null;
+		}
 
   }
   return init;

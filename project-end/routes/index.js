@@ -43,6 +43,18 @@ router.post('/rome', function(req, res, next) {
     })
 })
 
+//查询
+router.post('/cx', function(req, res, next) {
+    var pathname = req.body.id;
+    mong.find('abc', 'woc', { _id: obj(pathname) }, function(result) {
+        if (result) {
+            res.send({ code: 0, meg: '成功', data: result })
+        } else {
+            res.send({ code: 1, meg: '失败' })
+        }
+    })
+})
+
 //增加和修改
 
 router.post('/data', function(req, res, next) {
@@ -65,7 +77,7 @@ router.post('/data', function(req, res, next) {
         } else {
             mong.find('abc', 'woc', { name: name }, function(result) {
                 if (result.length > 0) {
-                    res.send({ code: 0, meg: '存在' })
+                    res.send({ code: 3, meg: '存在' })
                 } else {
                     mong.insert('abc', 'woc', pathname, function(result) {
                         if (result) {
