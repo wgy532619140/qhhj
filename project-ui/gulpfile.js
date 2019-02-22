@@ -51,6 +51,10 @@ gulp.task("server", function() {
 					    source: '/cx',
 					    target: 'http://localhost:3000/cx'
 					},
+					{
+					    source: '/mhcx',
+					    target: 'http://localhost:3000/mhcx'
+					},
                 ]
                 // middleware: function(req, res, next) {
                 //     var pathname = url.parse(req.url).pathname;

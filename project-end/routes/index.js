@@ -20,11 +20,19 @@ router.post('/moren', function(req, res, next) {
         }
         var db = con.db('abc')
         var collection = db.collection("woc")
-        collection.find().toArray(function(err, result) {
+        var aa = {}
+        if (req.body.val == "undefined") {
+            aa = aa
+        } else {
+            aa.name = { $regex: req.body.val, $options: 'i' }
+        }
+        console.log(aa);
+
+        collection.find(aa).toArray(function(err, result) {
             if (err) {
                 return res.json({ code: 1, msg: "error" })
             }
-            res.end(JSON.stringify({ code: 0, data: result }))
+            res.end(JSON.stringify({ code: 0, data: result.slice((req.body.page - 1) * 5, req.body.pagesize * req.body.page), pages: result.length / req.body.pagesize > 1 ? Math.ceil(result.length / req.body.pagesize) : 0 }))
         })
     })
 });
@@ -46,9 +54,28 @@ router.post('/rome', function(req, res, next) {
 //查询
 router.post('/cx', function(req, res, next) {
     var pathname = req.body.id;
+
     mong.find('abc', 'woc', { _id: obj(pathname) }, function(result) {
         if (result) {
             res.send({ code: 0, meg: '成功', data: result })
+        } else {
+            res.send({ code: 1, meg: '失败' })
+        }
+    })
+})
+
+//搜索
+router.post('/mhcx', function(req, res, next) {
+    var aa = {}
+    if (req.body.val == "undefined") {
+        aa = aa
+    } else {
+        aa.name = { $regex: req.body.val, $options: 'i' }
+    }
+    mong.find('abc', 'woc', aa, function(result) {
+        if (result) {
+
+            res.send({ code: 0, data: result.slice((req.body.page - 1) * 5, req.body.pagesize * req.body.page), pages: result.length / req.body.pagesize > 1 ? Math.ceil(result.length / req.body.pagesize) : 0 })
         } else {
             res.send({ code: 1, meg: '失败' })
         }
